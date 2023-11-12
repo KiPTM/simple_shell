@@ -21,28 +21,3 @@ void read_command(char cmd[]) {
 void type_prompt(void) {
 	printf("$ ");
 }
-
-void execute_command(char cmd[]) {
-	pid_t child_pid;
-	int status;
-
-	child_pid = fork();
-	if (child_pid == -1) {
-		perror("Fork error");
-		exit(1);
-	}
-
-	if (child_pid == 0) {
-		/*child process*/
-		char *args[2];
-		args[0] = cmd;
-		args[1] = NULL;
-		if (execve(cmd, args, NULL) == -1){
-			perror("Error");
-			exit(1); /*Exit the child process with an error */
-		}
-	} else {
-		/*Parent process*/
-		waitpid(child_pid, &status, 0);
-	}
-}
