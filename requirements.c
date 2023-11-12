@@ -1,3 +1,4 @@
+#include "command_parser.h"
 #include "requirements.h"
 #include <stdio.h>
 #include <string.h>
