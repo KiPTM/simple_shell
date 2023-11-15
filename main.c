@@ -18,7 +18,11 @@ int main(int argc, char *argv[])
     	{
         	write(1, "$ ", 2);
         	if (fgets(input, sizeof(input), stdin) == NULL)
-            		break;
+		{
+			if (isatty(STDIN_FILENO))
+				write(1, "\n", 1);
+			return (0);
+		}
 
 
         	input[strlen(input) - 1] = '\0';

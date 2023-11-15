@@ -39,7 +39,7 @@ void execute_command(char **cmd, char *strName)
 		if (child_pid == 0)
 		{
 			cmd_path = allocate_path(cmd[0]);
-			if (execve(cmd_path, cmd, environ) == -1)
+			if (execve(cmd[0], cmd, environ) == -1)
 			{
 				perror(strName);
 				exit(EXIT_FAILURE);
@@ -48,35 +48,5 @@ void execute_command(char **cmd, char *strName)
 		else {
 			waitpid(child_pid, &status, 0);
 		}
-		/*free_args(cmd);*/
 	}
-	else {
-		printf("Empty command.\n");
-	}
-
-	/*free(command);*/
-}
-
-int execute_command_with_args(const char *command, char **args) {
-	pid_t child_pid;
-	int status;
-
-	child_pid = fork();
-	if (child_pid == -1) {
-		perror("Fork error");
-		return 1;
-	}
-
-	if (child_pid == 0) {
-		/* child process */
-		if (execve(command, args, NULL) == -1) {
-			perror("Error");
-			return 1;
-		}
-	}else{
-		/*Parent process*/
-		waitpid(child_pid, &status, 0);
-	}
-
-	return 0;
 }
