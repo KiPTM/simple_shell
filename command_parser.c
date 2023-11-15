@@ -11,45 +11,45 @@
  * free_args - frees the memory used by an array of strings.
  * @args: The array of strings to be free.
  */
-void free_args(char **args) {
+void free_args(char **args)
+{
 	int i;
-	for (i= 0; args[i] != NULL; i++) {
+
+	for (i = 0; args[i] != NULL; i++)
+	{
 		free(args[i]);
 	}
 	free(args);
 }
 
-extern char **environ;
+/* extern char **environ; */ 
 
-int parse_command_with_args(const char *cmd, char **command, char ***args) {
+int parse_command_with_args(const char *cmd, char **command, char ***args)
+{
 	/**
 	 * Implementing the parse_with_args function
 	 * splitting the command string by space to separate command and arguements
-	 */
-
-    char *token;
-    int num_tokens = 0;
-    char *cmd_copy = strdup(cmd);
-    char *temp = cmd_copy;
-
-    token = strtok(cmd_copy, " \t\n"); /* Separate by space, tab, or newline */
-    *command = strdup(token); /* Set the command */
-
-    *args = malloc(sizeof(char *) * 10); /* Allocate memory for arguments */
-
-    while (token != NULL) {
-        (*args)[num_tokens] = strdup(token); /* Store arguments */
-        num_tokens++;
-        token = strtok(NULL, " \t\n");
-    }
-    (*args)[num_tokens] = NULL; /* Terminate the argument array */
-
-    free(temp); /* Free temporary memory */
-
-    return num_tokens;
-}
+	 */	
+	char *token;
+	int num_tokens = 0;
+	char *cmd_copy = strdup(cmd);
+	char *temp = cmd_copy;
+	token = strtok(cmd_copy, " \t\n"); /* Separate by space, tab, or newline */
+	*command = strdup(token); /* Set the command */
+	*args = malloc(sizeof(char *) * 10); /* Allocate memory for arguments */
+	while (token != NULL)
+	{
+		(*args)[num_tokens] = strdup(token); /* Store arguments */
+		num_tokens++;
+		token = strtok(NULL, " \t\n");
+	}
+	(*args)[num_tokens] = NULL; /* Terminate the argument array */
+	free(temp); /* Free temporary memory */
 	
-void execute_command(const char *cmd) {
+	return (num_tokens);
+}
+
+void execute_command(const char *cmd){
     pid_t child_pid;
     int status;
     char *command = NULL;

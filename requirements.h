@@ -9,6 +9,6 @@
 
 void read_command(char cmd[]);
 void type_prompt(void);
-void execute_command(char cmd[]);
+void execute_command(const char cmd[]);
 
 #endif
