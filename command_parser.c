@@ -57,7 +57,8 @@ void execute_command(char **cmd, char *strName)
 	/*free(command);*/
 }
 
-int execute_command_with_args(const char *command, char **args) {
+int execute_command_with_args(const char *command, char **args)
+{
 	pid_t child_pid;
 	int status;
 
