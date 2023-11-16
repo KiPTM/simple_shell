@@ -1,18 +1,12 @@
-#include "command_parser.h"
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <string.h>
+#include "shell.h"
 
 /**
- * search_path - Function allocates path to the input.
- * @str: The user inpute.
- * Return: The actual path of the inpute
+ * allocate_path- Function allocate path accordingly
+ * @cmd: The pointer to the command
+ * Return: The  right path for the command
  */
-
 char *allocate_path(const char *cmd)
-{ 
+{
 	char *pathTokens = NULL;
 	char *created_path = NULL;
 	struct stat buffer;
@@ -35,7 +29,8 @@ char *allocate_path(const char *cmd)
 				free(created_path);
 				created_path = NULL;
 				pathTokens = strtok(NULL, ":");
-			} else {
+			} else
+			{
 				exit(EXIT_FAILURE);
 			}
 		}

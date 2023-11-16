@@ -1,27 +1,37 @@
-#include "main.h"
+#include "shell.h"
 
 /**
- * display_env - Output the shell local environment details
- * @av: Array of arguments values
+ * self_builtin - Output the shell local environment details
+ * @cmd: Array of arguments values
  */
-
-void display_env(char *av[])
+void self_builtin(char **cmd)
 {
-	char **env = environ;
-	int i = 0;
+	if (strcmp(cmd[0], "exit") == 0)
+		my_exit(0);
+	else if (strcmp(cmd[0], "env") == 0)
+		print_env();
 
-	if (strcmp(av[0], "env") == 0)
-	{
-		while (i  < 12)
-		{
-			if (*env)
-				puts(env[i]);
-			env++;
-			i++;
-		}
+}
 
-	} else if (strcmp(av[0], "exit") == 0)
+/**
+ * my_exit - Terminate the child process
+ * @status: status value for exiting
+ */
+void my_exit(int status)
+{
+	exit(status);
+}
+
+/**
+ * print_env - Output the short detail of the environment
+ */
+void print_env(void)
+{
+	int i;
+
+	for (i = 0; environ[i]; i++)
 	{
-		shell_exit(av);
+		write(1, environ[i], strlen(environ[i]));
+		write(1, "\n", 1);
 	}
 }
