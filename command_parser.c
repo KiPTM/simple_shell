@@ -20,7 +20,7 @@ void free_args(char **args)
 	free(args);
 }
 
-/* extern char **environ; */
+extern char **environ; 
 
 void execute_command(char **cmd, char *strName)
 {
