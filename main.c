@@ -17,7 +17,9 @@ int main(int argc, char *argv[])
 
 	while (1)
 	{
-		write(1, "$ ", 2);
+		if (isatty(STDIN_FILENO))
+			write(1, "$ ", 2);
+
 		if (fgets(input, sizeof(input), stdin) == NULL)
 		{
 			if (isatty(STDIN_FILENO))
