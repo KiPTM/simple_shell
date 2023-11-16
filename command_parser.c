@@ -10,15 +10,17 @@
  * free_args - frees the memory used by an array of strings.
  * @args: The array of strings to be free.
  */
-void free_args(char **args) {
+void free_args(char **args)
+{
 	int i;
-	for (i = 0; args[i] != NULL; i++) {
+	for (i = 0; args[i] != NULL; i++)
+	{
 		free(args[i]);
 	}
 	free(args);
 }
 
-extern char **environ;
+/* extern char **environ; */
 
 void execute_command(char **cmd, char *strName)
 {
@@ -45,12 +47,14 @@ void execute_command(char **cmd, char *strName)
 				exit(EXIT_FAILURE);
 			}
 		}
-		else {
+		else
+		{
 			waitpid(child_pid, &status, 0);
 		}
 		/*free_args(cmd);*/
 	}
-	else {
+	else
+	{
 		printf("Empty command.\n");
 	}
 
@@ -63,18 +67,23 @@ int execute_command_with_args(const char *command, char **args)
 	int status;
 
 	child_pid = fork();
-	if (child_pid == -1) {
+	if (child_pid == -1)
+	{
 		perror("Fork error");
 		return 1;
 	}
 
-	if (child_pid == 0) {
+	if (child_pid == 0)
+	{
 		/* child process */
-		if (execve(command, args, NULL) == -1) {
+		if (execve(command, args, NULL) == -1)
+		{
 			perror("Error");
 			return 1;
 		}
-	}else{
+	}
+	else
+	{
 		/*Parent process*/
 		waitpid(child_pid, &status, 0);
 	}
