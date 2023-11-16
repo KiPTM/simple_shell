@@ -10,8 +10,8 @@
  * free_args - frees the memory used by an array of strings.
  * @args: The array of strings to be free.
  */
-void free_args(char **args)
-{
+
+void free_args(char **args) {
 	int i;
 	for (i = 0; args[i] != NULL; i++)
 	{
@@ -22,8 +22,7 @@ void free_args(char **args)
 
 extern char **environ; 
 
-void execute_command(char **cmd, char *strName)
-{
+void execute_command(char **cmd, char *strName) {
 	pid_t child_pid;
 	int status;
 	char *cmd_path;
@@ -61,8 +60,7 @@ void execute_command(char **cmd, char *strName)
 	/*free(command);*/
 }
 
-int execute_command_with_args(const char *command, char **args)
-{
+int execute_command_with_args(const char *command, char **args) {
 	pid_t child_pid;
 	int status;
 
