@@ -16,7 +16,7 @@ void execute_command(char **args, char *strName);
 char *allocate_path(const char *cmd);
 void self_builtin(char **cmd);
 void my_exit(int status);
-void print_env();
+void print_env(void);
 
 
 #endif
