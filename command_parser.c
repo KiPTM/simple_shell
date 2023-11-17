@@ -11,8 +11,10 @@
  * @args: The array of strings to be free.
  */
 
-void free_args(char **args) {
+void free_args(char **args)
+{
 	int i;
+
 	for (i = 0; args[i] != NULL; i++)
 	{
 		free(args[i]);
@@ -20,9 +22,20 @@ void free_args(char **args) {
 	free(args);
 }
 
-extern char **environ; 
+extern char **environ;
 
-void execute_command(char **cmd, char *strName) {
+/**
+ * execute_command - Execute command in a child process using fork and execve.
+ * @cmd: Command arguments.
+ * @strName: Command name.
+ *
+ * Description: This function executes a command in a child process using fork
+ * and execve system calls.
+ * Return: Returns 0 upon successful execution
+ */
+
+void execute_command(char **cmd, char *strName)
+{
 	pid_t child_pid;
 	int status;
 	char *cmd_path;
@@ -60,7 +73,13 @@ void execute_command(char **cmd, char *strName) {
 	/*free(command);*/
 }
 
-int execute_command_with_args(const char *command, char **args) {
+/**
+ * execute_command_with_args - executes cmd along with args using execve
+ * @args - arguements
+ */
+
+int execute_command_with_args(const char *command, char **args)
+{
 	pid_t child_pid;
 	int status;
 
@@ -68,7 +87,7 @@ int execute_command_with_args(const char *command, char **args) {
 	if (child_pid == -1)
 	{
 		perror("Fork error");
-		return 1;
+		return (1);
 	}
 
 	if (child_pid == 0)
@@ -77,7 +96,7 @@ int execute_command_with_args(const char *command, char **args) {
 		if (execve(command, args, NULL) == -1)
 		{
 			perror("Error");
-			return 1;
+			return (1);
 		}
 	}
 	else
@@ -86,5 +105,5 @@ int execute_command_with_args(const char *command, char **args) {
 		waitpid(child_pid, &status, 0);
 	}
 
-	return 0;
+	return (0);
 }
