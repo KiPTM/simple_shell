@@ -10,10 +10,10 @@ void self_builtin(char **cmd)
 		exit_shell(cmd);
 	else if (strcmp(cmd[0], "env") == 0)
 		print_env();
-   else if (strcmp(cmd[0], "setenv") == 0)
-	 mysetenv(3, cmd);
-   else if (strcmp(cmd[0], "unsetenv") == 0)
-	 myunsetenv(2, cmd);
+	else if (strcmp(cmd[0], "setenv") == 0)
+		mysetenv(3, cmd);
+	else if (strcmp(cmd[0], "unsetenv") == 0)
+		myunsetenv(2, cmd);
 }
 /**
  * my_exit - Terminate the child process
