@@ -1,4 +1,4 @@
-#include "command_parser.h"
+/*#include "command_parser.h"*/
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -34,12 +34,13 @@ extern char **environ;
  * Return: No return value
  */
 
-void execute_command(char **cmd, char *strName)
+void execute_commands(char **cmd, char *strName)
 {
 	pid_t child_pid;
 	int status;
 	char **args = NULL;
 	(void)cmd;
+	(void)strName;
 
 	if (cmd != NULL)
 	{
