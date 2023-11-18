@@ -7,12 +7,14 @@
 void self_builtin(char **cmd)
 {
 	if (strcmp(cmd[0], "exit") == 0)
-		my_exit(0);
+		exit_shell(cmd);
 	else if (strcmp(cmd[0], "env") == 0)
 		print_env();
-
+   else if (strcmp(cmd[0], "setenv") == 0)
+	 mysetenv(3, cmd);
+   else if (strcmp(cmd[0], "unsetenv") == 0)
+	 myunsetenv(2, cmd);
 }
-
 /**
  * my_exit - Terminate the child process
  * @status: status value for exiting
