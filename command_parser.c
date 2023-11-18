@@ -25,44 +25,41 @@ void free_args(char **args)
 extern char **environ;
 
 /**
- * execute_command - Execute command in a child process using fork and execve.
- * @cmd: Command arguments.
- * @strName: Command name.
- *
- * Description: This function executes a command in a child process using fork
- * and execve system calls.
- * Return: Returns 0 upon successful execution
+ * execute_command - Execute command in a child process using fork and execve
+ * @cmd: Command arguments
+ * @strName: Command name
+ * @args - arguements
+ * Description: This function executes a command along with its arguments
+   using execve system call.
+ * Return: No return value
  */
 
 void execute_command(char **cmd, char *strName)
 {
 	pid_t child_pid;
 	int status;
-	char *cmd_path;
+	char **args = NULL;
 	(void)cmd;
 
 	if (cmd != NULL)
 	{
-		child_pid = fork();
-		if (child_pid == -1)
-		{
-			perror(strName);
-			exit(EXIT_FAILURE);
-		}
+                child_pid = fork();
+                if (child_pid == -1) {
+                        perror("Fork error");
+                        exit(EXIT_FAILURE);
+                }
 
-		if (child_pid == 0)
-		{
-			cmd_path = allocate_path(cmd[0]);
-			if (execve(cmd_path, cmd, environ) == -1)
-			{
-				perror(strName);
-				exit(EXIT_FAILURE);
-			}
-		}
-		else
-		{
-			waitpid(child_pid, &status, 0);
-		}
+                if (child_pid == 0) {
+                        if (execve(cmd[0], cmd, environ) == -1) {
+                                perror("Execution error");
+                                exit(EXIT_FAILURE);
+                        }
+                }
+                else {
+                        waitpid(child_pid, &status, 0);
+                }
+
+                free_args(args);
 		/*free_args(cmd);*/
 	}
 	else
@@ -75,7 +72,9 @@ void execute_command(char **cmd, char *strName)
 
 /**
  * execute_command_with_args - executes cmd along with args using execve
- * @args - arguements
+ * @args: arguements
+ * return: 0
+ * Description: always return 0
  */
 
 int execute_command_with_args(const char *command, char **args)
