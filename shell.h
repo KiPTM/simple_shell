@@ -20,6 +20,6 @@ void print_env(void);
 void exit_shell(char **array);
 void mysetenv(int argc, char **argv);
 void myunsetenv(int argc, char **argv);
-
+char *_strcat(char *dest, char *src);
 
 #endif
